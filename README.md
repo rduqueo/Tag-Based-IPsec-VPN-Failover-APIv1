@@ -10,17 +10,19 @@ I just modified the API Calls, documentation details, data manipulation, and som
 ## Overview
 Tagged Based VPN Failover is utilized for third party Data Center Failover and OTT SD WAN Integration. This is accomplished by utilizing the API at each branch or Data Center. Each MX appliance will utilize IPsec VPN with cloud VPN nodes. IPsec along with the API is utilized to facilitate the dynamic tag allocation.
 
-Spoke sites will form a VPN tunnel to the primary DC
+Spoke sites will form a VPN tunnel to the primary DC. Dual active VPN tunnels to both DC’s is not possible with IPSec given that interesting traffic is often needed to bring up an IPSec tunnel and that interesting traffic will be routed to the first tunnel/peer configured and never the second.
 
-dual active VPN tunnels to both DC’s is not possible with IPSEC given that interesting traffic is often needed to bring up an ipsec tunnel and that interesting traffic will be routed to the first tunnel/peer configured and never the second
+Each spoke will be configured with a tracked IP of its primary DC under the traffic shaping page.
 
-Each spoke will be configured with a tracked IP of its primary DC under the traffic shaping page
-
-If the tracked IP experiences loss in the last 5 minutes, the API script (below) will re-tag the network in order to swap to the secondary ipsec VPN tunnel
+If the tracked IP experiences loss in the last 5 minutes, the API script (below) will re-tag the network in order to swap to the secondary IPSec VPN tunnel.
 
 Once the tracked IP has not had any loss in the last 5 minutes, the tags will be swapped back to swap back to the primary DC (to avoid flapping)
 
-### Step 1 - Fake Network for creating/keeping the Tags
+### Step 0 - Add the Primary IPSec Peer IP Address for Monitoring 
+
+Navigate to Security & SD-WAN > Traffic Shaping and add the IP of the primary peer under the uplink statistics.  The MX will start sending ICMP requests to this IP to track reachability. 
+
+### Step 1 - "Fake" Network for creating/keeping the Tags
 
 Navigate to Organization > Overview on the Meraki Dashboard and create a new empty network to add the tag you will be using. For instance:
 - New Fake Network Name: "Z_FakeSite_For_Tags"
