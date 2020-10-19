@@ -3,6 +3,7 @@ Tag-Based IPsec VPN Failover - Meraki APIv1
 ### Initial Notes
 
 This script is based of ryanpjbyrne, guillaume6hat, and Meraki provided script: https://documentation.meraki.com/MX/Site-to-site_VPN/Tag-Based_IPsec_VPN_Failover. 
+
 Thank you Guys!!
 
 I just modified the API Calls, documentation details, data manipulation, and some prints, in order to use Meraki APIv1 Endpoints and Python3.
@@ -26,12 +27,12 @@ Navigate to Security & SD-WAN > Traffic Shaping and add the IP of the primary pe
 
 Navigate to Organization > Overview on the Meraki Dashboard and create a new empty network to add the tag you will be using. For instance:
 - New Fake Network Name: "Z_FakeSite_For_Tags"
-- Tags for this network: "Tag_ZS_B_DOWN", "Tag_ZS_B_UP", "Tag_ZS_P_DOWN", "Tag_ZS_P_UP"  
+- Tags for this network: "Tag_ZS_B_DOWN", "Tag_ZS_B_UP", "Tag_ZS_P_DOWN", "Tag_ZS_P_UP"  -> B for Backup, P for Primary
 
 ### Step 2 - Configuration of IPSec Peer tags
 
 Navigate to one Site > Security & SD-WAN > Site-to-site VPN > Non-Meraki VPN peers, on the Meraki Dashboard.  
-Select the IPSec Peer you wish to tag and add the "UP" tag for each IPSEC peer.  
+Select the IPSec Peer you wish to tag and add only the "UP" tag for each IPSEC peer.  
 For instance:
 
 Primary IPSec Peer Tag: "Tag_ZS_P_UP"
@@ -43,7 +44,7 @@ Navigate to Organization > Overview on the Meraki Dashboard.
 Select the Network Sites you wish to tag and add one tag for each IPSEC peer.  
 Initial Tags should be similar to this:
 
-Network Site 1: "Tag_ZS_P_UP", "Tag_ZS_B_DOWN" -> Primary UP, Backup DOWN (default state)
+Network Site 1: "Tag_ZS_P_UP", "Tag_ZS_B_DOWN" -> Primary UP, Backup DOWN (this is the default state)
 
 #### Step 4 - Run the script: 
 
