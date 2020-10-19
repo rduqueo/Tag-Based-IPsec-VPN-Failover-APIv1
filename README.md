@@ -26,8 +26,8 @@ Navigate to Security & SD-WAN > Traffic Shaping and add the IP of the primary pe
 ### Step 1 - "Fake" Network for creating/keeping the Tags
 
 Navigate to Organization > Overview on the Meraki Dashboard and create a new empty network to add the tag you will be using. For instance:
-- New Fake Network Name: "Z_FakeSite_For_Tags"
-- Tags for this network: "Tag_ZS_B_DOWN", "Tag_ZS_B_UP", "Tag_ZS_P_DOWN", "Tag_ZS_P_UP"  -> B for Backup, P for Primary
+- New Fake Network Name: `Z_FakeSite_For_Tags`
+- Tags for this network: `Tag_ZS_B_DOWN`, `Tag_ZS_B_UP`, `Tag_ZS_P_DOWN`, `Tag_ZS_P_UP`  -> B for Backup, P for Primary
 
 ### Step 2 - Configuration of IPSec Peer tags
 
@@ -35,8 +35,8 @@ Navigate to one Site > Security & SD-WAN > Site-to-site VPN > Non-Meraki VPN pee
 Select the IPSec Peer you wish to tag and add only the "UP" tag for each IPSEC peer.  
 For instance:
 
-Primary IPSec Peer Tag: "Tag_ZS_P_UP"
-Backup IPSec Peer Tag: "Tag_ZS_B_UP"
+Primary IPSec Peer Tag: `Tag_ZS_P_UP`
+Backup IPSec Peer Tag: `Tag_ZS_B_UP`
 
 ### Step 3 - Configuration of Network tags
 
@@ -44,7 +44,7 @@ Navigate to Organization > Overview on the Meraki Dashboard.
 Select the Network Sites you wish to tag and add one tag for each IPSEC peer.  
 Initial Tags should be similar to this:
 
-Network Site 1: "Tag_ZS_P_UP", "Tag_ZS_B_DOWN" -> Primary UP, Backup DOWN (this is the default state)
+Network Site 1: `Tag_ZS_P_UP`, `Tag_ZS_B_DOWN` -> Primary UP, Backup DOWN (this is the default state)
 
 #### Step 4 - Run the script: 
 
